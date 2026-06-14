@@ -53,20 +53,15 @@
     }
     .nav-cta:hover { opacity: .85; }
 
-    /* ── HERO (CORREGIDO) ── */
+    /* ── HERO ── */
     .hero {
-      position: relative; 
-      min-height: calc(90vh - 64px);
-      display: flex; 
-      align-items: center;
-      justify-content: space-between;
+      position: relative; height: 90vh; min-height: 560px;
+      display: flex; align-items: center;
       background: linear-gradient(135deg, var(--navy) 0%, #2a4a65 50%, var(--sky) 100%);
       overflow: hidden;
-      padding: 60px 5% 80px 5%; /* Espacio interno para evitar que se desborde el contenido */
     }
     .hero-glass-bg {
       position: absolute; inset: 0;
-      z-index: 1;
       background:
         repeating-linear-gradient(
           45deg,
@@ -79,27 +74,23 @@
           transparent 1px, transparent 60px
         );
     }
-    .hero-content {
-      position: relative; z-index: 2;
-      max-width: 600px;
-      margin-bottom: 2rem;
-    }
     .hero-pane {
-      position: relative;
-      z-index: 2;
-      width: 380px; height: 480px;
+      position: absolute; right: 8%; top: 50%; transform: translateY(-50%);
+      width: 380px; height: 520px;
       background: rgba(255,255,255,.07);
       border: 1px solid rgba(255,255,255,.2);
       border-radius: 2px;
       backdrop-filter: blur(6px);
       box-shadow: 0 30px 80px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.15);
-      flex-shrink: 0;
-      margin-left: 2rem;
     }
     .hero-pane::before {
       content: '';
       position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px;
       border: 1px solid rgba(255,255,255,.1);
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 5%; max-width: 640px;
     }
     .hero-eyebrow {
       display: inline-block;
@@ -110,7 +101,7 @@
     }
     .hero h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
       font-weight: 700; line-height: 1.15;
       color: var(--white); margin-bottom: 1.25rem;
     }
@@ -119,7 +110,7 @@
       color: rgba(255,255,255,.8); font-size: 1.05rem;
       line-height: 1.7; max-width: 480px; margin-bottom: 2rem;
     }
-    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
     .btn-primary {
       background: var(--gold); color: var(--navy);
       border: none; padding: .85rem 2rem;
@@ -136,10 +127,8 @@
       text-decoration: none; display: inline-block;
     }
     .btn-outline:hover { border-color: var(--white); color: var(--white); }
-    
     .hero-since {
-      position: absolute; bottom: 1.5rem; left: 5%;
-      z-index: 2;
+      position: absolute; bottom: 2rem; left: 5%;
       color: rgba(255,255,255,.5); font-size: .8rem; letter-spacing: 1px;
     }
     .hero-since strong { color: var(--gold); }
@@ -428,39 +417,11 @@
     .qf-submit:hover { background: var(--sky); transform: translateY(-1px); }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 992px) {
-      .hero {
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-        padding-bottom: 4rem;
-      }
-      .hero-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-      .hero-btns {
-        justify-content: center;
-      }
-      .hero-pane {
-        margin-left: 0;
-        margin-top: 2rem;
-        width: 100%;
-        max-width: 380px;
-      }
-      .hero-since {
-        position: relative;
-        left: auto; bottom: auto;
-        margin-top: 2rem;
-        text-align: center;
-      }
-    }
-
     @media (max-width: 768px) {
       .about-inner { grid-template-columns: 1fr; }
       .about-visual { display: none; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
+      .hero-pane { display: none; }
       .nav-links { display: none; }
       .quote-inner { grid-template-columns: 1fr; gap: 2.5rem; }
     }
@@ -486,6 +447,7 @@
 
 <section class="hero">
   <div class="hero-glass-bg"></div>
+  <div class="hero-pane"></div>
   <div class="hero-content">
     <span class="hero-eyebrow">Melbourne, Victoria</span>
     <h1>Premium Windows,<br>Doors & <em>Glass Solutions</em></h1>
@@ -495,7 +457,6 @@
       <a href="#services" class="btn-outline">Our Services</a>
     </div>
   </div>
-  <div class="hero-pane"></div>
   <div class="hero-since">Serving Melbourne & Victoria with pride — Established <strong>2005</strong></div>
 </section>
 
@@ -577,7 +538,7 @@
       <div class="section-label">About PROVIAL Glass</div>
       <h2 class="section-title">Locally Owned &<br>Trusted Since 2005</h2>
       <p class="section-sub">PROVIAL Melbourne Glass is a long-established, locally owned business that has been continuously operating at the one address since 2005. We manufacture and install top quality architectural aluminium windows and doors across Melbourne and Victoria.</p>
-      <p class="section-sub">In over two decades we have built an enviable reputation with tens of thousands of customers for quality products, lifetime guaranteed workmanship, and outstanding reliability.</p>
+      <p class="section-sub">In over dos décadas we have built an enviable reputation with tens of thousands of customers for quality products, lifetime guaranteed workmanship, and outstanding reliability.</p>
       <ul class="about-list">
         <li>Custom made to suit every requirement</li>
         <li>Lifetime guaranteed workmanship</li>
@@ -703,7 +664,7 @@
     <div class="quote-right">
       <div class="quote-form-box">
         <form id="quoteForm" action="https://api.web3forms.com/submit" method="POST">
-          <input type="hidden" name="access_key" value="provialglass@gmail.com">
+          <input type="hidden" name="access_key" value="505e12ce-61a1-452a-bc7a-64f0cfb102c0">
           <input type="hidden" name="subject" value="Nueva solicitud de presupuesto – PROVIAL Glass">
           <input type="hidden" name="from_name" value="PROVIAL Glass Website">
           <input type="hidden" name="replyto" id="replyto" value="">
@@ -842,4 +803,4 @@
   });
 </script>
 </body>
-</html>
+</html>    
