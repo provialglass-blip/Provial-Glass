@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PROVIAL Melbourne Glass – Windows & Doors Victoria</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:    #1a2b3c;
+      --sky:     #3a7ca5;
+      --steel:   #6b9ab8;
+      --frost:   #e8f2f8;
+      --white:   #ffffff;
+      --sand:    #f5f0e8;
+      --text:    #2c2c2c;
+      --muted:   #666;
+      --gold:    #c8a84b;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--navy);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 64px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.3);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--white); letter-spacing: .5px;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,.85); text-decoration: none;
+      font-size: .875rem; font-weight: 500; letter-spacing: .3px;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--gold); color: var(--navy);
+      border: none; padding: .5rem 1.2rem;
+      font-weight: 600; font-size: .875rem; border-radius: 3px;
+      cursor: pointer; transition: opacity .2s;
+    }
+    .nav-cta:hover { opacity: .85; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; height: 90vh; min-height: 560px;
+      display: flex; align-items: center;
+      background: linear-gradient(135deg, var(--navy) 0%, #2a4a65 50%, var(--sky) 100%);
+      overflow: hidden;
+    }
+    .hero-glass-bg {
+      position: absolute; inset: 0;
+      background:
+        repeating-linear-gradient(
+          45deg,
+          rgba(255,255,255,.03) 0px, rgba(255,255,255,.03) 1px,
+          transparent 1px, transparent 60px
+        ),
+        repeating-linear-gradient(
+          -45deg,
+          rgba(255,255,255,.02) 0px, rgba(255,255,255,.02) 1px,
+          transparent 1px, transparent 60px
+        );
+    }
+    .hero-pane {
+      position: absolute; right: 8%; top: 50%; transform: translateY(-50%);
+      width: 380px; height: 520px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 2px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 30px 80px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.15);
+    }
+    .hero-pane::before {
+      content: '';
+      position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px;
+      border: 1px solid rgba(255,255,255,.1);
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 5%; max-width: 640px;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      background: var(--gold); color: var(--navy);
+      font-size: .75rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; padding: .3rem .8rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 700; line-height: 1.15;
+      color: var(--white); margin-bottom: 1.25rem;
+    }
+    .hero h1 em { color: var(--gold); font-style: normal; }
+    .hero p {
+      color: rgba(255,255,255,.8); font-size: 1.05rem;
+      line-height: 1.7; max-width: 480px; margin-bottom: 2rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold); color: var(--navy);
+      border: none; padding: .85rem 2rem;
+      font-weight: 700; font-size: .95rem; border-radius: 3px;
+      cursor: pointer; transition: transform .2s, opacity .2s;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-primary:hover { transform: translateY(-2px); opacity: .9; }
+    .btn-outline {
+      background: transparent; color: var(--white);
+      border: 1.5px solid rgba(255,255,255,.5);
+      padding: .85rem 2rem; font-weight: 600; font-size: .95rem;
+      border-radius: 3px; cursor: pointer; transition: border-color .2s, color .2s;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--white); color: var(--white); }
+    .hero-since {
+      position: absolute; bottom: 2rem; left: 5%;
+      color: rgba(255,255,255,.5); font-size: .8rem; letter-spacing: 1px;
+    }
+    .hero-since strong { color: var(--gold); }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--navy);
+      display: flex; justify-content: center; flex-wrap: wrap;
+      gap: 0;
+    }
+    .stat {
+      flex: 1; min-width: 160px;
+      padding: 1.5rem 2rem; text-align: center;
+      border-right: 1px solid rgba(255,255,255,.1);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 700; color: var(--gold);
+    }
+    .stat-label { font-size: .78rem; color: rgba(255,255,255,.6); letter-spacing: .5px; margin-top: .25rem; }
+
+    /* ── SECTION BASE ── */
+    section { padding: 80px 5%; }
+    .section-label {
+      font-size: .72rem; font-weight: 700; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--sky);
+      margin-bottom: .75rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700; color: var(--navy); line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .section-sub {
+      color: var(--muted); font-size: 1rem; line-height: 1.75;
+      max-width: 580px;
+    }
+
+    /* ── SERVICES ── */
+    .services { background: var(--sand); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .service-card {
+      background: var(--white);
+      border-top: 3px solid var(--sky);
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,.06);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.12); }
+    .service-icon {
+      width: 48px; height: 48px;
+      background: var(--frost); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 1.25rem;
+    }
+    .service-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; color: var(--navy); margin-bottom: .75rem;
+    }
+    .service-card p { font-size: .9rem; color: var(--muted); line-height: 1.7; }
+    .service-link {
+      display: inline-block; margin-top: 1rem;
+      font-size: .85rem; font-weight: 600; color: var(--sky);
+      text-decoration: none; border-bottom: 1px solid var(--steel);
+    }
+    .service-link:hover { color: var(--navy); }
+
+    /* ── ABOUT ── */
+    .about { background: var(--white); }
+    .about-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+      align-items: center;
+    }
+    .about-visual {
+      position: relative; height: 420px;
+    }
+    .about-block {
+      position: absolute;
+      background: linear-gradient(135deg, var(--navy), var(--sky));
+      border-radius: 2px;
+    }
+    .ab1 { width: 75%; height: 80%; top: 0; left: 0; }
+    .ab2 {
+      width: 55%; height: 55%; bottom: 0; right: 0;
+      background: var(--frost);
+      border: 2px solid var(--steel);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ab2-text {
+      text-align: center;
+    }
+    .ab2-text .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem; font-weight: 700; color: var(--navy);
+    }
+    .ab2-text .lbl { font-size: .8rem; color: var(--muted); letter-spacing: .5px; }
+    .about-content { }
+    .about-content .section-sub { margin-bottom: 1.25rem; }
+    .about-list { list-style: none; margin-top: 1.5rem; }
+    .about-list li {
+      padding: .6rem 0; display: flex; align-items: center; gap: .75rem;
+      border-bottom: 1px solid var(--frost);
+      font-size: .9rem; color: var(--text);
+    }
+    .about-list li::before {
+      content: '✓'; color: var(--sky);
+      font-weight: 700; font-size: 1rem; flex-shrink: 0;
+    }
+
+    /* ── PRODUCTS ── */
+    .products { background: var(--navy); }
+    .products .section-title { color: var(--white); }
+    .products .section-label { color: var(--gold); }
+    .products .section-sub { color: rgba(255,255,255,.65); }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem; margin-top: 3rem;
+    }
+    .product-card {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      padding: 1.75rem 1.5rem;
+      cursor: pointer;
+      transition: background .25s, border-color .25s;
+    }
+    .product-card:hover {
+      background: rgba(255,255,255,.1);
+      border-color: var(--gold);
+    }
+    .product-card h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; color: var(--white); margin-bottom: .5rem;
+    }
+    .product-card p { font-size: .82rem; color: rgba(255,255,255,.55); line-height: 1.6; }
+    .product-tag {
+      display: inline-block; margin-top: .75rem;
+      background: rgba(200,168,75,.15); color: var(--gold);
+      font-size: .72rem; font-weight: 700; letter-spacing: 1px;
+      padding: .25rem .6rem; border-radius: 2px;
+    }
+
+    /* ── WHY US ── */
+    .why { background: var(--frost); }
+    .why-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem; margin-top: 3rem;
+    }
+    .why-item { }
+    .why-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem; font-weight: 700;
+      color: var(--sky); opacity: .3; line-height: 1;
+      margin-bottom: -.5rem;
+    }
+    .why-item h4 { font-size: 1rem; font-weight: 600; color: var(--navy); margin-bottom: .5rem; }
+    .why-item p { font-size: .88rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── SERVICE AREA ── */
+    .area { background: var(--white); text-align: center; }
+    .area .section-sub { margin: 0 auto 2.5rem; }
+    .area-map {
+      max-width: 700px; margin: 0 auto;
+      background: var(--frost); border: 1px solid #dde6ee;
+      border-radius: 4px; padding: 3rem 2rem;
+    }
+    .area-map p { color: var(--navy); font-size: 1rem; margin-bottom: 1rem; }
+    .area-tags { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; margin-top: 1.25rem; }
+    .area-tag {
+      background: var(--navy); color: var(--white);
+      font-size: .78rem; padding: .35rem .85rem; border-radius: 2px;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: linear-gradient(135deg, var(--sky), var(--navy));
+      text-align: center; padding: 80px 5%;
+    }
+    .cta-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--white); margin-bottom: 1rem;
+    }
+    .cta-section p { color: rgba(255,255,255,.75); max-width: 500px; margin: 0 auto 2rem; line-height: 1.7; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy); color: rgba(255,255,255,.6);
+      padding: 50px 5% 30px;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-brand .nav-logo { font-size: 1.3rem; margin-bottom: .75rem; }
+    .footer-brand p { font-size: .85rem; line-height: 1.7; max-width: 260px; }
+    footer h5 {
+      color: var(--white); font-size: .82rem; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1rem;
+    }
+    footer ul { list-style: none; }
+    footer ul li { margin-bottom: .5rem; }
+    footer ul a { color: rgba(255,255,255,.6); text-decoration: none; font-size: .85rem; }
+    footer ul a:hover { color: var(--gold); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding-top: 1.25rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: .75rem;
+      font-size: .8rem;
+    }
+    .footer-bottom a { color: rgba(255,255,255,.5); text-decoration: none; }
+
+    /* ── QUOTE FORM ── */
+    .quote-section {
+      background: linear-gradient(135deg, var(--navy) 0%, #2a4a65 100%);
+      padding: 80px 5%;
+    }
+    .quote-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+      align-items: start; max-width: 1100px; margin: 0 auto;
+    }
+    .contact-card {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 6px; padding: 1.5rem; margin-top: .5rem;
+      display: flex; flex-direction: column; gap: 1.25rem;
+    }
+    .contact-person {
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .contact-avatar {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--gold); color: var(--navy);
+      font-weight: 800; font-size: .9rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-name { color: #fff; font-weight: 600; font-size: .95rem; margin-bottom: .2rem; }
+    .contact-phone {
+      color: var(--gold); font-size: .88rem; text-decoration: none;
+      font-weight: 500;
+    }
+    .contact-phone:hover { text-decoration: underline; }
+
+    .quote-form-box {
+      background: #fff; border-radius: 8px;
+      padding: 2.25rem; box-shadow: 0 20px 60px rgba(0,0,0,.3);
+    }
+    .qf-label {
+      font-size: .8rem; font-weight: 700; color: var(--navy);
+      letter-spacing: .3px; margin-bottom: .4rem; margin-top: 1.1rem;
+    }
+    .qf-label:first-child { margin-top: 0; }
+    .qf-input {
+      width: 100%; padding: .7rem .9rem;
+      border: 1.5px solid #c5d6e8; border-radius: 4px;
+      font-family: 'Inter', sans-serif; font-size: .92rem; color: var(--text);
+      background: #fff; outline: none;
+      transition: border-color .2s;
+      appearance: none; -webkit-appearance: none;
+    }
+    .qf-input:focus { border-color: var(--sky); }
+    .qf-select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%233a7ca5' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 2.5rem; cursor: pointer;
+    }
+    .qf-textarea { min-height: 110px; resize: vertical; }
+    .qf-submit {
+      width: 100%; margin-top: 1.5rem;
+      background: var(--navy); color: #fff;
+      border: none; padding: .9rem;
+      font-family: 'Inter', sans-serif; font-size: .95rem; font-weight: 700;
+      border-radius: 4px; cursor: pointer;
+      transition: background .2s, transform .15s;
+      letter-spacing: .3px;
+    }
+    .qf-submit:hover { background: var(--sky); transform: translateY(-1px); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .about-inner { grid-template-columns: 1fr; }
+      .about-visual { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .hero-pane { display: none; }
+      .nav-links { display: none; }
+      .quote-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .stat { min-width: 50%; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">PROVIAL <span>Glass</span></div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#area">Service Area</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta">Free Quote</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-glass-bg"></div>
+  <div class="hero-pane"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">Melbourne, Victoria</span>
+    <h1>Premium Windows,<br>Doors & <em>Glass Solutions</em></h1>
+    <p>Your one-stop shop for custom aluminium windows, doors, glass repairs and architectural glazing across Melbourne and Victoria.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Free Measure & Quote</a>
+      <a href="#services" class="btn-outline">Our Services</a>
+    </div>
+  </div>
+  <div class="hero-since">Serving Melbourne & Victoria with pride — Established <strong>2005</strong></div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-num">2005</div>
+    <div class="stat-label">Est. Since</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">20+</div>
+    <div class="stat-label">Years in Business</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">10K+</div>
+    <div class="stat-label">Happy Customers</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Custom Made</div>
+  </div>
+</div>
+
+<section class="services" id="services">
+  <div class="section-label">What We Do</div>
+  <h2 class="section-title">Complete Glass & Window Solutions</h2>
+  <p class="section-sub">From design to installation, we deliver quality craftsmanship for residential and commercial projects of every scale.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🪟</div>
+      <h3>Aluminium Windows</h3>
+      <p>Custom-manufactured aluminium windows engineered for Australian conditions. Residential, commercial and architectural applications.</p>
+      <a href="#" class="service-link">Learn more →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🚪</div>
+      <h3>Doors & Bifolds</h3>
+      <p>Sliding doors, bifold doors and entry systems built to precise measurements. Modern designs that maximise light and space.</p>
+      <a href="#" class="service-link">Learn more →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔧</div>
+      <h3>Glass Repairs</h3>
+      <p>Fast, reliable glass repair and replacement across Melbourne and surroundings. Emergency call-outs available.</p>
+      <a href="#" class="service-link">Learn more →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🚿</div>
+      <h3>Shower Screens</h3>
+      <p>Frameless and semi-frameless shower screens that transform your bathroom. Custom sizes for every space.</p>
+      <a href="#" class="service-link">Learn more →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏊</div>
+      <h3>Glass Pool Fencing</h3>
+      <p>Frameless and semi-frameless pool fencing that meets Australian safety standards without compromising your view.</p>
+      <a href="#" class="service-link">Learn more →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">✨</div>
+      <h3>Glass Splashbacks</h3>
+      <p>Toughened glass splashbacks in any colour or finish. Easy to clean, stunning to look at — perfect for kitchens.</p>
+      <a href="#" class="service-link">Learn more →</a>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-visual">
+      <div class="about-block ab1"></div>
+      <div class="about-block ab2">
+        <div class="ab2-text">
+          <div class="num">20+</div>
+          <div class="lbl">Years at the<br>same address</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-content">
+      <div class="section-label">About PROVIAL Glass</div>
+      <h2 class="section-title">Locally Owned &<br>Trusted Since 2005</h2>
+      <p class="section-sub">PROVIAL Melbourne Glass is a long-established, locally owned business that has been continuously operating at the one address since 2005. We manufacture and install top quality architectural aluminium windows and doors across Melbourne and Victoria.</p>
+      <p class="section-sub">In over two decades we have built an enviable reputation with tens of thousands of customers for quality products, lifetime guaranteed workmanship, and outstanding reliability.</p>
+      <ul class="about-list">
+        <li>Custom made to suit every requirement</li>
+        <li>Lifetime guaranteed workmanship</li>
+        <li>Full range of architectural & commercial glass</li>
+        <li>Temperature control glass specialists</li>
+        <li>Free measure and quote</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="products" id="products">
+  <div class="section-label">Our Range</div>
+  <h2 class="section-title">Architectural Glass Products</h2>
+  <p class="section-sub">Every product we supply is custom made for your specific requirements — no off-the-shelf compromises.</p>
+  <div class="products-grid">
+    <div class="product-card">
+      <h4>Frameless Glass Balustrades</h4>
+      <p>For balconies, terraces and decks — maximum views, minimum obstruction.</p>
+      <span class="product-tag">Residential</span>
+    </div>
+    <div class="product-card">
+      <h4>Temperature Control Glass</h4>
+      <p>Reduce heat and UV exposure without sacrificing natural light.</p>
+      <span class="product-tag">Energy Efficient</span>
+    </div>
+    <div class="product-card">
+      <h4>Commercial Glazing</h4>
+      <p>Full commercial fit-outs from shopfronts to office partitions.</p>
+      <span class="product-tag">Commercial</span>
+    </div>
+    <div class="product-card">
+      <h4>Screening Products</h4>
+      <p>Insect and security screens custom fitted to your existing frames.</p>
+      <span class="product-tag">Residential</span>
+    </div>
+    <div class="product-card">
+      <h4>Louvre Windows</h4>
+      <p>Perfect ventilation for the Australian climate — timeless and functional.</p>
+      <span class="product-tag">Residential</span>
+    </div>
+    <div class="product-card">
+      <h4>Stacker Doors</h4>
+      <p>Seamlessly connect indoor and outdoor spaces with stacking door systems.</p>
+      <span class="product-tag">Architectural</span>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="section-label">Why Choose Us</div>
+  <h2 class="section-title">The PROVIAL Glass Difference</h2>
+  <div class="why-grid">
+    <div class="why-item">
+      <div class="why-num">01</div>
+      <h4>Custom Manufacture</h4>
+      <p>Every window, door and glass product is made to measure for your project — no catalogue sizes, no compromise.</p>
+    </div>
+    <div class="why-item">
+      <div class="why-num">02</div>
+      <h4>Lifetime Workmanship Guarantee</h4>
+      <p>We stand behind every installation with a lifetime workmanship guarantee. Your peace of mind is included.</p>
+    </div>
+    <div class="why-item">
+      <div class="why-num">03</div>
+      <h4>Same Location Since 2005</h4>
+      <p>Stability matters. We've operated at the same address for over 20 years — you can always find us.</p>
+    </div>
+    <div class="why-item">
+      <div class="why-num">04</div>
+      <h4>Free Measure & Quote</h4>
+      <p>Our experts come to you, measure precisely, and provide an obligation-free quote tailored to your job.</p>
+    </div>
+  </div>
+</section>
+
+<section class="area" id="area">
+  <div class="section-label">Where We Work</div>
+  <h2 class="section-title">Melbourne & Beyond</h2>
+  <p class="section-sub">We service all of Melbourne, regional Victoria and surrounding areas — across Greater Melbourne and regional Victoria.</p>
+  <div class="area-map">
+    <p>🗺️ Our service region covers:</p>
+    <div class="area-tags">
+      <span class="area-tag">Melbourne CBD</span>
+      <span class="area-tag">Southbank</span>
+      <span class="area-tag">Richmond</span>
+      <span class="area-tag">St Kilda</span>
+      <span class="area-tag">Fitzroy</span>
+      <span class="area-tag">Collingwood</span>
+      <span class="area-tag">Brunswick</span>
+      <span class="area-tag">Docklands</span>
+      <span class="area-tag">Dandenong</span>
+      <span class="area-tag">Frankston</span>
+      <span class="area-tag">Geelong</span>
+      <span class="area-tag">Regional VIC</span>
+    </div>
+  </div>
+</section>
+
+<section class="quote-section" id="contact">
+  <div class="quote-inner">
+    <div class="quote-left">
+      <div class="section-label" style="color:var(--gold)">Get in Touch</div>
+      <h2 class="section-title" style="color:#fff;">Request a Free Quote</h2>
+      <p style="color:rgba(255,255,255,.7); line-height:1.75; margin-bottom:2rem;">Fill out the form below and one of our team members will get back to you shortly with a free, no-obligation quote.</p>
+      <div class="contact-card">
+        <div class="contact-person">
+          <div class="contact-avatar">CO</div>
+          <div>
+            <div class="contact-name">Carlos Ordóñez</div>
+            <a href="tel:+61418815208" class="contact-phone">+61 418 815 208</a>
+          </div>
+        </div>
+        <div class="contact-person">
+          <div class="contact-avatar">MS</div>
+          <div>
+            <div class="contact-name">Mateo Sarmiento</div>
+            <a href="tel:+61402188998" class="contact-phone">+61 402 188 998</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="quote-right">
+      <div class="quote-form-box">
+        <form id="quoteForm" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="provialglass@gmail.com">
+          <input type="hidden" name="subject" value="Nueva solicitud de presupuesto – PROVIAL Glass">
+          <input type="hidden" name="from_name" value="PROVIAL Glass Website">
+          <input type="hidden" name="replyto" id="replyto" value="">
+
+          <div class="qf-label">Name</div>
+          <input class="qf-input" type="text" name="name" placeholder="Your full name" required />
+
+          <div class="qf-label">Email</div>
+          <input class="qf-input" type="email" name="email" placeholder="your@email.com" required
+            oninput="document.getElementById('replyto').value=this.value" />
+
+          <div class="qf-label">Phone Number</div>
+          <input class="qf-input" type="tel" name="phone" placeholder="+61 000 000 000" />
+
+          <div class="qf-label">Service you are interested in</div>
+          <select class="qf-input qf-select" name="service" required>
+            <option value="">Select one...</option>
+            <option>Windows and Doors</option>
+            <option>Shower Screens</option>
+            <option>Wardrobe &amp; Storage Doors</option>
+            <option>Screen Options</option>
+            <option>Glass Pool Fencing</option>
+            <option>Glass Splashbacks</option>
+            <option>Glass Repairs</option>
+            <option>Commercial Glazing</option>
+            <option>Other</option>
+          </select>
+
+          <div class="qf-label">Message</div>
+          <textarea class="qf-input qf-textarea" name="message" placeholder="Type your message..."></textarea>
+
+          <input type="checkbox" name="botcheck" style="display:none">
+
+          <button type="submit" class="qf-submit" id="submitBtn">Send Free Quote Request</button>
+        </form>
+
+        <div id="formSuccess" style="display:none; margin-top:1.25rem; padding:1rem 1.25rem;
+             background:#e8f5e9; border:1.5px solid #66bb6a; border-radius:6px; color:#2e7d32;
+             font-size:.92rem; font-weight:600; text-align:center;">
+          ✅ ¡Mensaje enviado! Te contactaremos a la brevedad.
+        </div>
+        <div id="formError" style="display:none; margin-top:1.25rem; padding:1rem 1.25rem;
+             background:#fdecea; border:1.5px solid #ef9a9a; border-radius:6px; color:#c62828;
+             font-size:.92rem; font-weight:600; text-align:center;">
+          ❌ Hubo un error al enviar. Por favor inténtalo de nuevo.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">PROVIAL <span style="color:var(--gold)">Glass</span></div>
+      <p>Locally owned and operated in Melbourne since 2005. Specialists in custom aluminium windows, doors, glass repairs and architectural glazing.</p>
+    </div>
+    <div>
+      <h5>Services</h5>
+      <ul>
+        <li><a href="#">Windows</a></li>
+        <li><a href="#">Doors & Bifolds</a></li>
+        <li><a href="#">Glass Repairs</a></li>
+        <li><a href="#">Shower Screens</a></li>
+        <li><a href="#">Pool Fencing</a></li>
+        <li><a href="#">Splashbacks</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Products</h5>
+      <ul>
+        <li><a href="#">Balustrades</a></li>
+        <li><a href="#">Temp Control Glass</a></li>
+        <li><a href="#">Commercial Glazing</a></li>
+        <li><a href="#">Screening</a></li>
+        <li><a href="#">Louvre Windows</a></li>
+        <li><a href="#">Stacker Doors</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Contact</h5>
+      <ul>
+        <li><a href="tel:+61418815208">📞 +61 418 815 208 – Carlos Ordóñez</a></li>
+        <li><a href="tel:+61402188998">📞 +61 402 188 998 – Mateo Sarmiento</a></li>
+        <li><a href="#">✉ info@provialglass.com.au</a></li>
+        <li><a href="#">📍 Melbourne, Victoria</a></li>
+        <li><a href="#">Mon–Fri: 7:30am–4:30pm</a></li>
+        <li><a href="#">Sat: 8:00am–12:00pm</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 PROVIAL Melbourne Glass. All rights reserved.</span>
+    <span><a href="#">Privacy Policy</a> · <a href="#">Terms</a></span>
+  </div>
+</footer>
+
+<script>
+  const form = document.getElementById('quoteForm');
+  const btn  = document.getElementById('submitBtn');
+  const ok   = document.getElementById('formSuccess');
+  const err  = document.getElementById('formError');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    ok.style.display = 'none';
+    err.style.display = 'none';
+
+    const data = new FormData(form);
+    try {
+      const res  = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: data
+      });
+      const json = await res.json();
+
+      if (json.success) {
+        ok.style.display = 'block';
+        form.reset();
+      } else {
+        err.style.display = 'block';
+      }
+    } catch(_) {
+      err.style.display = 'block';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Send Free Quote Request';
+    }
+  });
+
+  // Nav CTA button → scroll to contact
+  document.querySelector('.nav-cta').addEventListener('click', function() {
+    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>
